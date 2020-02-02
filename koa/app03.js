@@ -16,8 +16,13 @@ router
   .get('/news', async ctx => {
     ctx.body = '新闻列表'
   })
-  .get('/newscontent/:aid', async ctx => {
-    console.log(ctx.params)
+  .get('/newscontent', async ctx => {
+
+    console.log(ctx.query.url)
+
+    console.log(ctx.query.query)          // { aid: '123', name: 'zhangsan' }   对象
+    console.log(ctx.query.queryString)    // aid=123&name=zhangsan              字符串
+
     ctx.body = '新闻详情'
   })
 
