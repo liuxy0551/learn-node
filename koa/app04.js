@@ -17,7 +17,9 @@ router
     ctx.body = '新闻列表'
   })
   .get('/newscontent/:aid', async ctx => {
-    console.log(ctx.params)
+    // http://localhost:9000/newscontent/1234
+
+    console.log(ctx.params)     // { aid: '1234' }
     ctx.body = '新闻详情'
   })
 
