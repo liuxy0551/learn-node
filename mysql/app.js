@@ -32,7 +32,7 @@ const Pet = sequelize.define('pet', {
 // 往数据库中添加数据
 const now = Date.now();
 
-(async () => {
+/* (async () => {
   let dog = await Pet.create({
     id: 'd-' + now,
     name: 'Mary',
@@ -43,4 +43,16 @@ const now = Date.now();
     version: 0
   })
   console.log('created: ' + JSON.stringify(dog))
-}) ()
+}) (); */
+
+(async () => {
+  var pets = await Pet.findAll({
+      where: {
+          name: 'Mary'
+      }
+  });
+  console.log(`find ${ pets.length } pets:`);
+  for (let p of pets) {
+      console.log(JSON.stringify(p));
+  }
+}) ();
