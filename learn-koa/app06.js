@@ -1,5 +1,5 @@
 /**
- * 应用级中间件
+ * 错误处理中间件
  */
 
 // 引入模块
@@ -7,10 +7,15 @@ const Koa = require('koa')
 const router = require('koa-router')() // 引入并实例化
 const app = new Koa()
 
-// 应用级中间件 - 匹配路由之前打印当前时间，如果没有 next()，匹配到这个路由后就不会继续向下匹配路由
+// 错误处理中间件
 app.use(async (ctx, next) => {
-  console.log(new Date())
-  await next() // 当前路由匹配以后继续向下匹配
+  await next()
+  if (ctx.status === 404) { // 如果页面找不到
+    ctx.status = 404
+    ctx.body = '这是一个404页面'
+  } else {
+    console.log(ctx.url)
+  }
 })
 
 // 配置路由
@@ -18,6 +23,11 @@ app.use(async (ctx, next) => {
 router
   .get('/', async ctx => {
     ctx.body = '首页'
+  })
+  // 路由中间件
+  .get('/news', async (ctx, next) => {
+    console.log('新闻列表')
+    await next()
   })
   .get('/news', async ctx => {
     ctx.body = '新闻列表'

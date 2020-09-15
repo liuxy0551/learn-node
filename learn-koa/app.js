@@ -1,3 +1,6 @@
+/**
+ * async await
+ */
 async function getData () {
   return '这是一个数据'
 }
